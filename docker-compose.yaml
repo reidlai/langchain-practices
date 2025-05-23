@@ -1,0 +1,21 @@
+services:
+  ollama:
+    container_name: ollama
+    image: ollama/ollama:latest
+    ports:
+      - "11434:11434"
+    environment:
+      PATH: "/usr/local/nvidia/bin:/usr/local/cuda/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin"
+    volumes:
+      - ollama-models:/root/.ollama/models/
+    deploy:
+      resources:
+        reservations:
+          cpus: "0.5"
+          memory: "256M"
+          devices:
+            - driver: nvidia
+              capabilities: ["gpu"]
+              device_ids: ["0"]
+volumes:
+  ollama-models:
