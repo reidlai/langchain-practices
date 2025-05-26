@@ -17,5 +17,16 @@ services:
             - driver: nvidia
               capabilities: ["gpu"]
               device_ids: ["0"]
+  searxng:
+    image: searxng/searxng:latest
+    container_name: searxng
+    ports:
+      - "8080:8080" 
+    environment:
+      BASE_URL: "http://localhost:8080/"
+      INSTANCE_NAME: "my-instance"
+    volumes:
+      - ./config/searxng/:/etc/searxng/              
 volumes:
   ollama-models:
+  searxng-data:
